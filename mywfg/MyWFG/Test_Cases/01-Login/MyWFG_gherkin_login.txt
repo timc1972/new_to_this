@@ -1,0 +1,45 @@
+*** Settings ***
+Documentation     A test suite with a single Gherkin style test.
+...
+...               This test is functionally identical to the example in
+...               valid_login.txt file.
+Metadata          Version   0.1
+Resource          ../../Resources/login_resource.txt
+Resource          ../../Resources/webpage_resource.txt
+Test Teardown     Close Browser
+
+*** Test Cases ***
+Valid Login
+    Given browser is opened to login page
+    When user "1200W" logs in with password "81u3$ky"
+    Then welcome page should be open
+
+Valid Login - Click Menu Item
+    Given browser is opened to login page
+    When user "1200W" logs in with password "81u3$ky"
+    Then welcome page should be open
+    Then Hover Over "Resources"
+    And Select Menu Item "Media Center"
+
+Invalid Login - Bad Password
+    Given Browser is opened to login page
+    When User "1200W" logs in with password "none"
+    Then Login Should Have Failed
+
+Invalid Login - Bad Username
+    Given Browser is opened to login page
+    When User "invalid" logs in with password "81u3$ky"
+    Then Login Should Have Failed
+
+*** Keywords ***
+Browser is opened to login page
+    Open browser to login page
+
+User "${username}" logs in with password "${password}"
+    Input username        ${username}
+    Input password        ${password}
+    Submit credentials
+
+Login Should Have Failed
+    Location Should Be    ${ERROR URL}
+    Title Should Be       MyWFG - Log In

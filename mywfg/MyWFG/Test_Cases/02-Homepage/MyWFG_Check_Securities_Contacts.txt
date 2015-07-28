@@ -1,0 +1,29 @@
+*** Settings ***
+Documentation     A test suite to check Securities Home Office Contacts page.
+...
+...               This test will log into MyWFG and
+...               verify the Securities Home Office Contacts page.
+Metadata          Version   0.1
+Resource          ../../Resources/login_resource.txt
+Resource          ../../Resources/webpage_resource.txt
+
+*** Test Cases ***
+Valid Login
+    Given browser is opened to login page
+    When user "1708W" logs in with password "81u3$ky"
+    Then welcome page should be open
+
+Navigate to Securities Home Office Contacts
+    Then Hover Over "Home"
+    Then Select Menu Item "Securities Home Office Contacts"
+
+Find Text On Webpage
+    And Find "WFG Securities of Canada" On Webpage
+    And Find "416.225.2121" On Webpage
+    And Find "TFG Managers" On Webpage
+
+Log Out
+    Log Out of MyWFG
+    Close Browser
+
+*** Keywords ***

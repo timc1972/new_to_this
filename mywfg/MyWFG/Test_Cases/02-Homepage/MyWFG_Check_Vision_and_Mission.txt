@@ -1,0 +1,28 @@
+*** Settings ***
+Documentation     A test suite to check Vision and Mission page.
+...
+...               This test will log into MyWFG and
+...               verify the Vision and Mission page.
+Metadata          Version   0.1
+Resource          ../../Resources/login_resource.txt
+Resource          ../../Resources/webpage_resource.txt
+
+*** Test Cases ***
+Valid Login
+    Given browser is opened to login page
+    When user "1708W" logs in with password "81u3$ky"
+    Then welcome page should be open
+
+Navigate to Vision and Mission
+    Then Hover Over "Home"
+    Then Select Menu Item "WFG Vision and Mission"
+
+Find Text On Webpage
+    And Find "WFG Vision" On Webpage
+    And Find "WFG Mission" On Webpage
+
+Log Out
+    Then Log Out of MyWFG
+    And Close Browser
+
+*** Keywords ***

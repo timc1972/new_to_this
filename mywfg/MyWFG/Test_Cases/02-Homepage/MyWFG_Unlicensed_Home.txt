@@ -1,0 +1,29 @@
+*** Settings ***
+Documentation     A test suite to check Licensed Home page.
+...
+...               This test will log into MyWFG and
+...               verify the Licensed Home page.
+Metadata          Version   0.1
+Resource          ../../Resources/login_resource.txt
+Resource          ../../Resources/webpage_resource.txt
+
+*** Test Cases ***
+Valid Login
+    Given browser is opened to login page
+    When user "1708W" logs in with password "81u3$ky"
+    Then welcome page should be open
+
+Navigate to Licensed Home
+    Then Hover Over "Home"
+    Then Select Menu Item "Unlicensed Home"
+
+Find Text On Webpage
+    And Find "WFG Fast Start Manual" On Webpage
+    And Find "WFG Leadership Manual" On Webpage
+    And Find "Back Office Support System (BOSS)" On Webpage
+
+Log Out
+    Log Out of MyWFG
+    Close Browser
+
+*** Keywords ***

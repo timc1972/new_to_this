@@ -1,0 +1,32 @@
+*** Settings ***
+Documentation     A test suite to check home office contacts page.
+...
+...               This test will log into MyWFG and
+...               verify the Home Office Contacts page.
+Metadata          Version   0.1
+Resource          ../../Resources/login_resource.txt
+Resource          ../../Resources/webpage_resource.txt
+Test Teardown
+
+*** Test Cases ***
+Login
+    Open browser to login page
+    Input username    1708W
+    Input password    81u3$ky
+    Submit credentials
+
+Navigate to Home Office Contacts
+    mouse over       xpath=//a[(text()='Home')]
+    click element    xpath=//a[(text()='Home Office Contacts')]
+
+Check Info on Home Office Contacts page
+    page should contain   Home Office Contacts
+    page should contain   770.246.9889
+    page should contain   416.225.2121
+    page should contain   678.966.6161
+
+Logout
+    click link    xpath=//a[@href="/Wfg.MyWfgLogin/Account/LogOff"]
+    Close Browser
+
+*** Keywords ***

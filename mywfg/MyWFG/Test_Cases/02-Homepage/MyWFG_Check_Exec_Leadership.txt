@@ -1,0 +1,32 @@
+*** Settings ***
+Documentation     A test suite to check leadership.
+...
+...               This test will log into MyWFG and
+...               verify the Leadership.
+Metadata          Version   0.1
+Resource          ../../Resources/login_resource.txt
+Resource          ../../Resources/webpage_resource.txt
+Test Teardown
+
+*** Test Cases ***
+Login
+    Open browser to login page
+    Input username    1708W
+    Input password    81u3$ky
+    Submit credentials
+    mouse over       xpath=//a[(text()='Home')]
+    click element    xpath=//a[(text()='Home Office Executive Leadership')]
+
+Check Leadership Names
+    element should contain    xpath=//p/strong[contains(text(),'Joe DiPaola')]     Joe DiPaola
+    element should contain    xpath=//p/strong[contains(text(),'Richard Williams')]     Richard Williams
+    element should contain    xpath=//p/strong[contains(text(),'Paul Mineck')]     Paul Mineck
+    element should contain    xpath=//p/strong[contains(text(),'Susan Davies')]     Susan Davies
+    element should contain    xpath=//p/strong[contains(text(),'Leesa Easley')]     Leesa Easley
+    element should contain    xpath=//p/strong[contains(text(),'John Joseph')]     John Joseph
+
+Logout
+    click link    xpath=//a[@href="/Wfg.MyWfgLogin/Account/LogOff"]
+    Close Browser
+
+*** Keywords ***

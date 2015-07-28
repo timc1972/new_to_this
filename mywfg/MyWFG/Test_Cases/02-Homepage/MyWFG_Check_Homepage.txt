@@ -1,0 +1,24 @@
+*** Settings ***
+Documentation     A test suite with Gherkin style tests.
+...
+...               This test will log into MyWFG and
+...               verify the Homepage.
+Metadata          Version   0.1
+Resource          ../../Resources/login_resource.txt
+Resource          ../../Resources/webpage_resource.txt
+Test Teardown
+
+*** Test Cases ***
+Valid Login
+    Given browser is opened to login page
+    When user "1708W" logs in with password "81u3$ky"
+    Then welcome page should be open
+
+Navigate to HomePage
+    Given Welcome Page Should Be Open
+    Then Select Menu Item "Home"
+    And Element Header "My WFG Business" Should Be Present
+    Close Browser
+
+*** Keywords ***
+# See login_resources.txt
